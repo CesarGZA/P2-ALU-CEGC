@@ -1,0 +1,25 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.std_logic_unsigned.ALL;
+USE work.ALL
+--UA a,b,s,cin, salsum,cout
+ENTITY UA IS
+    PORT (
+        a, b : IN STD_LOGIC_VECTOR(2 DOWNTO 0);--000 001 010 011  100 101 110 111
+        s : IN STD_LOGIC_VECTOR(1 DOWNTO 0);--s0   s1
+        cin : IN STD_LOGIC;
+        salua : OUT STD_LOGIC_VECTOR(2 DOWNTO 0); --000 001 010 011  100 101 110 111
+        cout : OUT STD_LOGIC);
+END ENTITY UA;
+
+ARCHITECTURE arqUA OF UA IS
+    SIGNAL cablemux4B : STD_LOGIC_VECTOR(2 DOWNTO 0);
+BEGIN
+    --del mux4                        port map 
+    --del mux4                        port map (s,b, salmux4x1)
+    bMux : ENTITY mux4x1(arqmux4x1) PORT MAP (s, b, cablemux4B);
+
+    --SUM de                    port map (a,  b,       cin, salsum,cout)
+    sumador : ENTITY sum(arqsum) PORT MAP (a, cablemux4B, cin, salsum, cout);
+
+END ARCHITECTURE arqUA;

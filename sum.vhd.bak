@@ -1,0 +1,22 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+--use ieee.std_logic_arith;
+USE ieee.std_logic_signed.ALL;
+--use ieee.numeric_std.all;
+--port map (a,b, cin, salsum, cout)
+ENTITY sum IS
+	PORT (
+		a, b : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+		cin : IN STD_LOGIC;
+		salsum : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
+		cout : OUT STD_LOGIC);
+END ENTITY sum;
+
+ARCHITECTURE arqsum OF sum IS
+	SIGNAL mid : STD_LOGIC_VECTOR(3 DOWNTO 0);--un bit que a y b
+BEGIN
+
+	mid <= ('0' & a) + ('0' & b) + cin; --aqui se hace la suma. (amperson sirve para concatenar y aumenta el numero de bits)
+	cout <= mid(3);-- con este truco recupero el cout. la operacion a+b solo sale s no cout
+	salsum <= mid(2 DOWNTO 0);-- aqui esta la suma
+END ARCHITECTURE arqsum;
